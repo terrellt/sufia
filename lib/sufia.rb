@@ -18,6 +18,7 @@ module Sufia
  
     config.autoload_paths += %W(
       #{config.root}/app/controllers/concerns
+      #{config.root}/app/helpers/concerns
       #{config.root}/app/models/concerns
       #{config.root}/app/models/datastreams
     )
@@ -30,4 +31,5 @@ module Sufia
   autoload :BatchEditsControllerBehavior
   autoload :DownloadsControllerBehavior
 end
+
 
