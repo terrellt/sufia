@@ -34,13 +34,13 @@ module Sufia
         load File.expand_path('../../../tasks/sufia-models_tasks.rake', __FILE__)
       end
 
-      initializer "patches" do
+      initializer "sufia-models.patches" do
         require 'sufia/models/active_fedora/redis'
         require 'sufia/models/active_record/redis'
         require 'sufia/models/active_support/core_ext/marshal' unless Rails::VERSION::MAJOR == 4
       end
 
-      initializer 'requires' do
+      initializer 'sufia-models.initializer', after: 'sufia-models.patches' do
         require 'hydra/derivatives'
         require 'sufia/models/model_methods'
         require 'sufia/models/noid'
@@ -61,7 +61,7 @@ module Sufia
         require 'sufia/models/solr_document_behavior'
       end
 
-      initializer 'configure' do
+      initializer 'sufia-models.configure', after: 'sufia-models.initialize' do
         Hydra::Derivatives.ffmpeg_path    = Sufia.config.ffmpeg_path
         Hydra::Derivatives.temp_file_base = Sufia.config.temp_file_base
         Hydra::Derivatives.fits_path      = Sufia.config.fits_path
